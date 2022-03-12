@@ -8,7 +8,6 @@ import queryString from "query-string";
 let socket;
 function Chat({ location }) {
   const [name, setName] = useState("");
-  const [room, setRoom] = useState("");
   const [message, setMessage] = useState();
   const [users, setUsers] = useState("");
   const [messages, setMessages] = useState([]);
@@ -17,8 +16,8 @@ function Chat({ location }) {
     const { name, room } = queryString.parse(location.search);
     socket = io(ENDPOINT);
     setName(name);
-    setRoom(room);
     socket.emit("join", { name, room });
+    // eslint-disable-next-line
     return socket.emit("disconnect"), socket.off();
   }, [ENDPOINT, location.search]);
 
